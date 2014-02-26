@@ -1,0 +1,47 @@
+<script src="js/jquery-1.9.1.js"></script>
+
+<script type="text/javascript">
+
+var url = "http://exposit.no-ip.com:8768/API/2.1/Users/Login";
+
+	var obj = new Object;
+	obj.username = 'djlennyibizarre';
+	obj.password = 'djlennyibizarre';
+	obj.type = 2;
+	
+/*	$.ajax({
+		url: url,
+		type: "POST",
+		data:obj,
+		success:function(output, status, xhr){
+			//alert("Success");
+			 alert(xhr.responseText)
+			//alert($.cookie("cpapi2-session-id"));			
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			//alert(xhr.responseText);
+			alert("Error--------" + xhr.statusText + "(" + thrownError + ")", "Error");
+			console.log("error : " + xhr.statusText + "(" + thrownError + ")");
+			//$.mobile.hidePageLoadingMsg();
+		}
+	});*/
+	
+	url = "http://exposit.no-ip.com:8768/API/2.1/Events/All";
+	$.ajax({
+		url: url,
+		type: "GET",
+		success:function(output, status, xhr){
+			//alert("Success");
+		 alert(xhr.responseText)
+			//var dataTableName = $(data).find('Parking_ID');
+			//alert($.cookie("cpapi2-session-id"));			
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			//alert(xhr.responseText);
+			alert("Error--------" + xhr.statusText + "(" + thrownError + ")", "Error");
+			console.log("error : " + xhr.statusText + "(" + thrownError + ")");
+			//$.mobile.hidePageLoadingMsg();
+		}
+	});
+	 
+</script>

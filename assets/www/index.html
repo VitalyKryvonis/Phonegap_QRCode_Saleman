@@ -1,0 +1,274 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Sale Man</title>
+<link rel="stylesheet" href="css/style.css" type="text/css">
+<link rel="stylesheet" href="css/jquery.mobile-1.3.2.min.css" />
+<link rel="stylesheet" href="css/owl.carousel.css">
+<link rel="stylesheet" href="css/owl.theme.css">
+<!-- <script type="text/javascript" src="js/jquery-1.9.1.js"></script> -->
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script> 
+
+<script src="js/owl.carousel.min.js"></script>
+
+<script type="text/javascript">
+$(document).bind("mobileinit", function(){
+	$.mobile.defaultPageTransition = "slide";
+	$.support.cors = true;
+    $.mobile.allowCrossDomainPages = true;
+    $.support.touchOverflow = true;
+    $.mobile.touchOverflowEnabled = true;
+	$.fn.buttonMarkup.defaults.corners=false;
+});
+</script>
+<script type="text/javascript" src="js/jquery.mobile-1.3.2.min.js"></script>
+<script type="text/javascript" src="js/jquery.raty.min.js"></script>
+
+<link rel="stylesheet" href="msgbox/msgBoxLight.css" />
+<script type='text/javascript' src='msgbox/jquery.msgBox.js'></script>
+
+<script type="text/javascript" src="main.js"></script>
+<!-- <script type="text/javascript" src="data.js"></script> -->
+
+</head>
+<body>
+<div data-role="page" id="home">
+	<div data-role="header">
+		<h1>LOG IN</h1>
+	</div> <!--/header-->
+	
+	<div data-role="content">
+			<h3>USER ID Login</h3>
+			<input type="text" id="userid" placeholder="User ID" value="01">
+			<h3>SALE MAN Code</h3>
+			<input type="text" id="salemancode" placeholder="Sale Man Code" value="03">
+			<h3>Location</h3>
+			<div class="location">
+				<input type="text" id="location" placeholder="Location" value="01">
+			</div>
+			<div data-role="controlgroup" data-type="horizontal">
+				<a class="btn-home" id="btn-cancel" data-role="button" data-corners="false" href="#" >Cancel</a>
+				<a class="btn-home" onclick="loginProcess();" id="btn-ok" data-role="button" data-corners="false" href="#">OK</a>
+			</div>
+	</div><!--/content -->
+</div><!--/home-->
+	
+<!-------------------------- Setup Page Start--------------------------------->
+<div data-role="page" id="setup">
+	<div data-role="header">
+		<h1>SETUP</h1>
+	</div> <!--/header-->
+	
+	<div data-role="content">
+		<div class="button">
+			<!-- <a class="btn-home" id="btn-barcode" data-rel="popup" data-role="button" data-corners="false" href="#">Barcode Scan</a>-->
+			<!--<div data-role="controlgroup" data-type="horizontal" style="margin-top:-100px;margin-left:-10px;">
+				<div style="float:left;width:50%;margin-right: 15px;">
+					<input type="text" id="barcode" placeholder="" val="1000000097399">
+				</div>
+				<a onclick="showProduct()" style="margin-top:8px;" class="btn-home" id="scan" data-role="button" data-corners="false" href="#">Show</a>
+			</div>-->
+			<a class="btn-home" onclick="RecallOrder();" id="btn-recall" data-rel="popup" data-role="button" data-corners="false" href="#" >Recall Order</a>
+			<a class="btn-home" onclick="RemoveOrder();" id="btn-del" data-role="button" data-corners="false" href="#">Delete Existing Order</a>
+			<!-- <a class="btn-home" onclick="ShowOverview();" id="btn-overview" data-role="button" data-corners="false" href="#">Show Overview</a> -->
+		</div>
+		<div data-role="controlgroup" data-type="horizontal">
+				<a class="btn-home" id="btn-logout" data-role="button" data-corners="false" href="#home" >LOGOUT</a>
+				<a class="btn-home" onclick="ShowOverview();" id="btn-ok" data-role="button" data-corners="false" href="#">OK</a>
+		</div>
+	</div><!--/content -->
+</div><!--/setup-->
+
+<div id="popupBasic" style="display:none;">
+	<div>
+	  <div class="popuptitle">
+		<span>Orders<span>
+		<span onclick="closeRecall();" style="position: absolute;right: 1px;cursor: pointer;width: 30px;border-radius: 53px;border: solid 1px;height: 30px;line-height: 27px;">x</span>
+	  </div>
+	  <ul data-role="listview" id="orderlist">
+		
+	  </ul>
+	 </div>
+</div>
+
+<div data-role="page" id="product">
+	<div data-role="header">
+		<h1>Product</h1>
+	</div> <!--/header-->
+	
+	<div data-role="content">
+		<div id="product_detail" style="width:100%" class="ui-block-b">
+			<ul data-role="listview" data-inset="true" data-theme="d">
+				<li style="height:105px;" class="picture" data-role="fieldcontain" data-theme="c">
+					<div>
+						<label style="margin-right:30px;" for="pic">Picture:</label>
+						<img id="product_img" onclick="showPicPopUp();" name="pic" width="130px" height="100px" src="images/products/1.jpg"/>
+					</div>
+				</li>
+				<li class="model" data-role="fieldcontain" data-theme="c">
+					<label style="margin-right:45px;width: 65px !important;" for="model">Model:</label>
+					<label id="model" name="model"></label>
+				</li>
+				<li class="barcode" data-role="fieldcontain" data-theme="c">
+					<label style="margin-right:45px;width: 65px !important;" for="barcode">Barcode:</label>
+					<label id="barcode" name="barcode"></label>
+				</li>
+				<li data-role="fieldcontain" data-theme="c">
+					<label for="description">Description:</label>
+					<textarea cols="40" rows="8" name="description" id="description" placeholder="please add a product description">
+					</textarea>
+				</li>
+				<li class="glass" data-role="fieldcontain" data-theme="c">
+					<label style="margin-right:45px;width: 145px !important;" for="glass">Glass/Shade:</label>
+					<label id="glass" name="glass"></label>
+				</li>
+				<li class="base" data-role="fieldcontain" data-theme="c">
+					<label style="margin-right:45px;width: 145px !important;" for="base">Base/Finish:</label>
+					<label id="base" name="base"></label>
+				</li>
+				<li class="lamps" data-role="fieldcontain" data-theme="c">
+					<label style="margin-right:45px;width: 65px !important;" for="lamps">Lamps:</label>
+					<label id="lamps" name="barcode"></label>
+				</li>
+				<li class="ballast" data-role="fieldcontain" data-theme="c">
+					<label style="margin-right:45px;width: 175px !important;" for="ballast">BALLAST/TRFMERS:</label>
+					<label id="ballast" name="ballast"></label>
+				</li>
+				<li class="region" data-role="fieldcontain" data-theme="c">
+					<label style="margin-right:45px;width: 65px !important;" for="region">Region:</label>
+					<label id="region" name="region"></label>
+				</li>
+				<li class="price" data-role="fieldcontain" data-theme="c">
+					<label style="margin-right:45px;width: 65px !important;" for="price_in">Price:</label>
+					<label id="price" name="price_in"></label>
+				</li>
+				<li class="qty" data-role="fieldcontain" data-theme="c">
+					<label for="qty_in" class="ui-input-text">Quantity:</label>
+					<input type="number" name="qty_in" id="qty" data-mini="true"  data-theme="c" value="" />
+				</li>
+				
+				<li class="remark" data-role="fieldcontain" data-theme="c">
+					<label for="remark_in" class="ui-input-text">Remark:</label>
+					<input type="text" name="remark_in" id="remark" value="" data-clear-btn="true" data-mini="true"  data-theme="c" class="required"/>
+				</li>
+			</ul>
+		</div>
+		<div data-role="controlgroup" data-type="horizontal">
+			<a class="btn-home" id="btn-cancel" data-role="button" data-corners="false" href="#product_overview" >Back</a>
+			<a class="btn-home" id="btn-ok" data-role="button" data-corners="false" href="#">OK</a>
+		</div>
+	</div><!--/content -->
+</div><!--/product-->
+
+<div data-role="page" id="product_overview">
+	<div data-role="header">
+		<h1>Product Overview</h1>
+	</div> <!--/header-->
+	
+	<div data-role="content">
+	    <div data-role="controlgroup" data-type="horizontal" style=""margin-left:-10px;">
+				<div style="float:left;width:37%;margin-right: 15px;">
+					<input type="text" id="barcode" placeholder="" val="1000000097399">
+				</div>
+				<a onclick="showProduct()" style="margin-top:8px;" class="btn-home" id="scan" data-role="button" data-corners="false" href="#">Show</a>
+		</div>
+		<ul id="productlist" data-role="listview" data-inset="true" data-theme="d">
+			<!--<table cellspacing="0" class="product">
+				<tr class="header">
+					<th>Picture</td>
+					<th>Model</td>
+					<th>Price</td>
+					<th>QTY</td>
+					<th></td>
+				</th>
+				<tbody>
+					<tr class="top">
+						<td class="pic">
+							<img width="80px" height="70px" src="images/products/1.jpg">
+						</td>
+						<td class="model">
+							HILL MB237489 BLACK
+						</td>
+						<td class="price">
+							$99
+						</td>
+						<td class="qty">
+							2
+						</td>
+						<td class="remove_btn" rowspan="3">
+							<input type="button" value="x">
+						</td>
+					</tr>
+					<tr class="remark">
+						<td colspan="4">Remark</td>
+					</tr>
+				</tbody>
+				<tbody>
+					<tr class="top">
+						<td class="pic">
+							<img width="80px" height="70px" src="images/products/2.jpg">
+						</td>
+						<td class="model">
+							<span>HILL MB237489 BLACK</span>
+						</td>
+						<td class="price">
+							<span>$99</span>
+						</td>
+						<td class="qty">
+							<span>2</span>
+						</td>
+						<td class="remove_btn" rowspan="3">
+							<input type="button" value="x">
+						</td>
+					</tr>
+					<tr class="remark">
+						<td colspan="4"><span>Remark</span></td>
+					</tr>
+				</tbody>
+			</table>-->
+		</ul>
+		<div style="float:right;margin-right:40px;width:140px" data-type="horizontal" data-role="controlgroup">
+			<label style="width:40px" for="total_in" class="ui-input-text">Total:</label>
+			<input style="width:140px"  type="text" name="total_in" id="total" data-mini="true"  data-theme="c" class="required"readonly />
+		</div>
+		<div data-role="controlgroup" style="clear:both;" data-type="horizontal">
+			<a class="btn-home" id="btn-cancel" data-role="button" data-corners="false" href="#setup" >Back</a>
+			<a class="btn-home" id="btn-confirm" data-role="button" data-corners="false" href="#" onclick="onConfirm()">Confirm</a>
+		</div>
+		<div style="width:100%;margin-top:35px;text-align:center;">
+			<a style="width: 40%;margin-left: 30%;" class="btn-home" id="btn-clear" data-role="button" data-corners="false" href="#" onclick="onClearAll()" >Clear All</a>
+		</div>
+	</div><!--/content -->
+</div><!--/product review-->
+
+<div data-role="page" id="result">
+	<div data-role="header">
+		<h1>Product Result</h1>
+	</div> <!--/header-->
+	<div data-role="content">
+	    <ul id="result_list">
+			<li>
+				<div class="name">
+					ACE AT457_02
+				</div>
+				<div class="desc">
+					halogen spotlight with white ring,dia 6x6.5cm,\n 
+					w/mini track	
+					halogen spotlight,dia 3.5x7.5cm,w/mini track adaptor	
+					halogen spotlight,dia 3.5x7.5cm,w/mini track adaptor	
+				</div>
+			</li>
+		</ul>
+		<div style="width:100%;margin-top:35px;text-align:center;">
+			<a style="width: 40%;margin-left: 30%;" class="btn-home" data-role="button" data-corners="false" href="#" onclick="onBackFromResult()" >Back</a>
+		</div>
+	</div><!--content -->
+</div><!--reslut review-->
+<div data-role="popup" id="popupPhoto" class="photopopup" data-overlay-theme="a" data-corners="false" data-tolerance="30,15" >
+	<a href="#" onclick="hidePicPopUp();" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">X</a>
+	<img id="popupimg" src="images/study_large.png" alt="Photo portrait">
+</div>
+<script type="text/javascript" charset="utf-8" src="cordova.js"></script>	
+<script type="text/javascript" charset="utf-8" src="barcodescanner.js"></script>
+</body>
+</html>

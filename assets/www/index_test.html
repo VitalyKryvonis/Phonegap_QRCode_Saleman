@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+<html>
+    <body>
+        <form onsubmit="return saveText()">
+            <label for="name">Name</label><br>
+            <input id="name" /><br>
+ 
+            <label for="desc">Description</label><br>
+            <input id="desc" /><br>
+ 
+            <input type="submit" value="Save" />
+        </form>
+ 
+ 
+        <dl id="definitions">
+ 
+        </dl>
+    </body>
+    <script src="cordova.js"></script>
+    <script>
+        var FILENAME = 'database.txt',
+            $ = function (id) {
+                return document.getElementById(id);
+            },
+            failCB = function (msg) {
+                return function () {
+                    alert('[FAIL] ' + msg);
+                }
+            },
+            file = {
+                writer: { available: false },
+                reader: { available: false }
+            },
+            dbEntries = [];
+ 
+        document.addEventListener('deviceready', function () {
+            var fail = failCB('requestFileSystem');
+            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
+        }, false);
+ 
+        function gotFS(fs) {
+            var fail = failCB('getFile');
+            fs.root.getFile(FILENAME, {create: true, exclusive: false},
+                            gotFileEntry, fail);
+        }
+ 
+        function gotFileEntry(fileEntry) {
+            var fail = failCB('createWriter');
+            file.entry = fileEntry;
+ 
+            fileEntry.createWriter(gotFileWriter, fail);
+            readText();
+        }
+ 
+        function gotFileWriter(fileWriter) {
+            file.writer.available = true;
+            file.writer.object = fileWriter;
+        }
+ 
+        function saveText(e) {
+            var name = $('name').value,
+                desc = $('desc').value,
+                fail;
+ 
+            dbEntries.push('<dt>' + name + '</dt><dd>' + desc + '</dd>')
+            $('name').value = '';
+            $('desc').value = '';
+ 
+            $('definitions').innerHTML = dbEntries.join('');
+ 
+            if (file.writer.available) {
+                file.writer.available = false;
+                file.writer.object.onwriteend = function (evt) {
+                    file.writer.available = true;
+                    file.writer.object.seek(0);
+                }
+                file.writer.object.write(dbEntries.join("\n"));
+            }
+ 
+            return false;
+        }
+ 
+        function readText() {
+            if (file.entry) {
+                file.entry.file(function (dbFile) {
+                    var reader = new FileReader();
+                    reader.onloadend = function (evt) {
+                        var textArray = evt.target.result.split("\n");
+ 
+                        dbEntries = textArray.concat(dbEntries);
+ 
+                        $('definitions').innerHTML = dbEntries.join('');
+                    }
+                    reader.readAsText(dbFile);
+                }, failCB("FileReader"));
+            }
+ 
+            return false;
+        }
+    </script>
+</html>

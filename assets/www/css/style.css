@@ -1,0 +1,254 @@
+body{
+	background:#CFE899 !important;
+	margin:0px !important;
+}
+
+#home, #setup, #product, #product_overview, #result
+{
+	background:#CFE899 !important;
+	-webkit-overflow-scrolling:touch;
+}
+.ui-btn-corner-all{
+	-moz-border-radius:0;
+	-webkit-border-radius: 0;
+	border-radius: 0;
+}
+.ui-controlgroup-controls{
+	width: 100%;
+	margin-left: 10%;
+}
+#home{
+	background:transparent;
+	text-align: center;
+}
+h1 {
+	font-size:17px !important;
+}
+#home #btn-cancel {
+	margin-right:10px;
+}
+#home .ui-controlgroup-controls{
+	width: 100%;
+	margin-top: 25px;
+	margin-left: 10%;
+}
+#home .btn-home {
+	-moz-border-radius:0;
+	-webkit-border-radius: 0;
+	border-radius: 0;
+	width:40%;
+}
+#home .ui-content{
+	margin:10%;
+}
+#home .location{
+	width: 50%;
+	margin-left: 25%;
+	text-align:center;
+}
+
+#setup .button {
+	margin-top: 30px;
+	width: 80%;
+	margin-left: 10%;
+}
+#setup #btn-recall{
+ margin-top:20px;
+}
+#setup #btn-del {
+  margin-top:20px;
+}
+#setup #btn-overview {
+  margin-top:20px;
+}
+
+#setup .ui-controlgroup-controls{
+	width: 100%;
+	margin-top: 40%;
+	margin-left: 5%;
+}
+
+#setup #btn-logout {
+	margin-right: 10%;
+}
+
+#setup .btn-home {
+	-moz-border-radius:0;
+	-webkit-border-radius: 0;
+	border-radius: 0;
+}
+#setup .ui-controlgroup-controls .btn-home {
+	width: 40%;
+}
+#setup .popuptitle {
+	width: 100%;
+	text-align: center;
+	height: 50px;
+	line-height: 50px;
+	font-size: 20px;
+	color: blue;
+	font-weight: bold;
+}
+#setup .ui-popup-container{
+	left:20% !important;
+	width:60% !important;
+	height:20% !important;
+}
+
+#product #product_detail label{
+	width: 250px !important;
+	font-weight:bold;
+	display:table-cell;
+}
+#product .ui-content {
+	padding-left: 15px;
+	padding-right: 15px;
+	margin-top: -25px;
+}
+#product .btn-home {
+	-moz-border-radius:0;
+	-webkit-border-radius: 0;
+	border-radius: 0;
+	width:40%;
+}
+
+#product .button {
+	width: 60%;
+	margin-left: 20%;
+}
+#product  #product_detail li {
+	padding-top:5px;
+	padding-bottom:5px;
+	padding-left:10px;
+	padding-right:10px;
+}
+
+#product_overview .ui-content {
+	padding:0px;
+}
+#product_overview .btn-home {
+	-moz-border-radius:0;
+	-webkit-border-radius: 0;
+	border-radius: 0;
+	width:30%;
+	margin-left: 2%;
+	margin-right:10%;
+}
+#product_overview  table{
+	background:white;
+	width:100%;
+	text-align:center;
+	border: solid grey 1px;
+}
+#product_overview  table tbody .top td{
+	border-top: 1px solid black; 
+}
+#product_overview table tr.header th { 
+	border-right:1px solid black;
+	padding:5px;
+	font-size:12px;
+}
+#product_overview table tr.header th:last-child {
+	border-right:0px solid black;
+	border-bottom: 0px solid black; 
+}
+#product_overview table td span {
+	font-size:11px;
+}
+
+#product_overview table tr.top td{
+	padding:4px;
+	border-right:1px solid black;
+	border-bottom:1px solid black;
+}
+#product_overview table tr.top td:last-child {
+	border-right:0px solid black;
+}
+#product_overview table .remove_btn {
+	border:0px solid black !important;
+	border-top:1px solid black !important;
+}
+#product_overview table .remark td{
+	padding:10px;
+	border-right:1px solid black;
+	font-size:11px;
+}
+.clear{
+       width:100%;
+       height:0px;
+       display:block;
+       clear:both;
+}
+#container{
+	-webkit-overflow-scrolling:touch
+	background:red;
+	background:transparent;
+	position:absolute;
+	width:100%;
+	height:100%; !important;
+}
+#popupBasic{
+	z-index: 10;
+	position: absolute;
+	top: 105px;
+	left: 10%;
+	width: 80%;
+	background: wheat;
+	border: solid 1px;
+	height: 250px;
+	
+	font-size:18px;
+}
+#popupBasic #orderlist{
+	list-style: none;
+	padding: 0px;
+	margin: 1px;
+	overflow-y: scroll;
+	background: wheat;
+	height: 213px;
+}
+
+#popupBasic .popuptitle{
+	background: green;
+	text-shadow: 0 0px 0 #000;
+	text-align: center;
+	font-size: 30px;
+}
+#popupBasic #orderlist li{
+	list-style: none;
+	padding-bottom: 7px;
+	border-bottom: solid 2px;
+	font-size: 25px;
+	padding-top: 5px;
+}
+
+#popupPhoto a {
+	border: solid 2px black;
+	border-radius: 10px;
+	padding-left: 5px;
+	padding-right: 5px;
+	background: black;
+	color: white;
+	right: -5px;
+	text-decoration: none;
+}
+
+#result #result_list {
+	list-style: none;
+	text-shadow: 0 0px 0 #000;
+	padding: 0px;
+}
+#result #result_list  li {
+	color: grey;
+	border-bottom: solid 1px;
+	padding-left: 10px;
+	padding-bottom: 10px;
+	padding-top: 5px;
+}
+#result #result_list  li .name {
+	color:blue;
+	font-weight:bold;
+}
+#result #result_list  li .desc{
+	color:black;
+}
